@@ -10,7 +10,9 @@ const Main = () => {
       <NavBar className="mb-4" />
       <div className="flex w-full gap-6">
         <LeftSideBar className="flex-[0.30] lg:block hidden" />
-        <MobileLeftSideBar />
+        <MobileLeftSideBar>
+          <LeftSideBar className="h-screen overflow-y-auto" />
+        </MobileLeftSideBar>
         <Middle className="2xl:flex-[0.50] lg:flex-[0.70] flex-1" />
         <RightSideBar className="flex-[0.20] 2xl:block hidden max-h-[65vh] xl:max-h-[80vh] h-fit" />
       </div>

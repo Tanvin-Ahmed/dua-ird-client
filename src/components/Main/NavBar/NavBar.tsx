@@ -5,7 +5,7 @@ import { FC, HTMLAttributes, useContext } from "react";
 import UserDropdown from "./UserDropdown";
 import SearchBox from "./SearchBox";
 import { IoIosSettings } from "react-icons/io";
-import { appContext } from "@/components/context/appContext";
+import { appContext } from "@/components/context/AppContext";
 import Image from "next/image";
 
 const NavBar: FC<HTMLAttributes<HTMLDivElement>> = ({ className }) => {

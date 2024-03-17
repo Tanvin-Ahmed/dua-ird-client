@@ -1,22 +1,43 @@
 "use client";
-
-import { useState } from "react";
+import { FC, useCallback } from "react";
 import Card from "./Card";
 import SubCategoryTimeline from "./SubCategoryTimeline";
-import DuaTimeline from "./DuaTimeline";
+import { CategoryType } from "@/types";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const List = () => {
-  const [selectedCategoryId, setSelectedCategoryId] = useState("");
-  const [selectedSubCategoryId, setSelectedSubCategoryId] = useState("");
+interface ListPropType {
+  data: CategoryType;
+}
+
+const List: FC<ListPropType> = ({ data }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useSearchParams();
+
+  const setQueryStringInUrl = useCallback(
+    (queryString: string) => {
+      router.push(pathname.replace(/\/$/, "") + "?" + queryString);
+    },
+    [router, pathname]
+  );
+
   return (
     <div className="w-full">
-      <Card onClick={() => setSelectedCategoryId("1")} />
-      {selectedCategoryId === "1" && (
+      <Card
+        data={data}
+        onClick={() => setQueryStringInUrl(`cat=${data.cat_id}`)}
+        clicked={data.cat_id === Number(params.get("cat"))}
+      />
+
+      {!!Number(params.get("cat")) &&
+      Number(params.get("cat")) === data.cat_id ? (
         <>
-          <SubCategoryTimeline setSubCatId={setSelectedSubCategoryId} />
-          {selectedSubCategoryId === "1" && <DuaTimeline />}
+          <SubCategoryTimeline
+            catId={Number(params.get("cat"))}
+            subCatId={Number(params.get("subcat"))}
+          />
         </>
-      )}
+      ) : null}
     </div>
   );
 };

@@ -3,11 +3,19 @@
 import { useWindowWidth } from "@react-hook/window-size";
 import Image from "next/image";
 import UserDropdown from "../Main/NavBar/UserDropdown";
+import { useEffect, useState } from "react";
 
 const Options = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const windowWidth = useWindowWidth();
 
   const imgSize = windowWidth <= 350 ? 16 : 20;
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  if (!isLoaded) return null;
 
   return (
     <>

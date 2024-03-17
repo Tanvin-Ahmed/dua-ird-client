@@ -2,11 +2,17 @@ import { cn } from "@/utils";
 import { FC, HTMLAttributes } from "react";
 import SearchBox from "./SearchBox";
 import List from "./List";
+import { axiosInstance } from "@/axiosInstance/instance";
+import { CategoryType } from "@/types";
 
-const LeftSideBar: FC<HTMLAttributes<HTMLDivElement>> = ({
+const LeftSideBar: FC<HTMLAttributes<HTMLDivElement>> = async ({
   className,
   ...rest
 }) => {
+  const { data }: { data: CategoryType[] } = await axiosInstance(
+    "/get-categories"
+  );
+
   return (
     <div
       {...rest}
@@ -19,17 +25,10 @@ const LeftSideBar: FC<HTMLAttributes<HTMLDivElement>> = ({
         <SearchBox />
       </div>
 
-      <div className="p-2 overflow-y-auto space-y-4 w-full max-h-[76vh] lg:max-h-[45vh] xl:max-h-[62vh]">
-        <List />
-        <List />
-        <List />
-        <List />
-        <List />
-        <List />
-        <List />
-        <List />
-        <List />
-        <List />
+      <div className="p-2 overflow-y-auto overflow-x-hidden space-y-4 w-full max-h-[76vh] lg:max-h-[45vh] xl:max-h-[62vh]">
+        {data.length
+          ? data.map((category) => <List key={category.id} data={category} />)
+          : null}
       </div>
     </div>
   );

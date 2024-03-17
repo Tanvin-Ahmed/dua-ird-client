@@ -4,7 +4,7 @@ import { cn } from "@/utils";
 import Image from "next/image";
 import { FC, HTMLAttributes, useContext, useState } from "react";
 import Menus from "./Menus";
-import { appContext } from "@/components/context/appContext";
+import { appContext } from "@/components/context/AppContext";
 
 const settingsData = [
   {

@@ -1,10 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import {
   Dispatch,
   ReactNode,
   SetStateAction,
   createContext,
+  useEffect,
   useState,
 } from "react";
 
@@ -26,8 +28,14 @@ const defaultValues: AppContextValues = {
 export const appContext = createContext<AppContextValues>(defaultValues);
 
 const AppContext = ({ children }: { children: ReactNode }) => {
+  const router = useRouter();
+
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isCategoryOpen, setCategoryOpen] = useState(false);
+
+  useEffect(() => {
+    router.push("/?cat=1&subcat=1");
+  }, [router]);
 
   return (
     <appContext.Provider

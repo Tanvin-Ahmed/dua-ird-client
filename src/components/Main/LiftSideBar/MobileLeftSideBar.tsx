@@ -1,11 +1,13 @@
 "use client";
-
-import { appContext } from "@/components/context/appContext";
+import { appContext } from "@/components/context/AppContext";
 import { cn } from "@/utils";
-import { useContext } from "react";
-import LeftSideBar from "./LeftSideBar";
+import { FC, ReactNode, useContext } from "react";
 
-const MobileLeftSideBar = () => {
+interface MobileLeftSideBar {
+  children: ReactNode;
+}
+
+const MobileLeftSideBar: FC<MobileLeftSideBar> = ({ children }) => {
   const { isCategoryOpen, setCategoryOpen } = useContext(appContext);
 
   const toggleSidebar = () => {
@@ -27,7 +29,7 @@ const MobileLeftSideBar = () => {
           }
         )}
       >
-        <LeftSideBar className="h-screen overflow-y-auto" />
+        {children}
       </div>
     </>
   ) : null;
